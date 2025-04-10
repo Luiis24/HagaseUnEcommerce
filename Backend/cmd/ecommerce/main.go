@@ -15,13 +15,13 @@ import (
 var db *sql.DB
 
 type Product struct {
-	ProductID         int     `json:"productId"`
-	ProductImage      string  `json:"productImage"`
-	ProductName       string  `json:"productName"`
-	ProductPrice      float64 `json:"productPrice"`
-	ProductDescription string `json:"productDescription"`
-	ProductCategory   string  `json:"productCategory"`
-	QuantityProduct   int     `json:"quantityProduct"`
+	ProductID          int     `json:"productId"`
+	ProductImage       string  `json:"productImage"`
+	ProductName        string  `json:"productName"`
+	ProductPrice       float64 `json:"productPrice"`
+	ProductDescription string  `json:"productDescription"`
+	ProductCategory    string  `json:"productCategory"`
+	QuantityProduct    int     `json:"quantityProduct"`
 }
 
 func main() {
@@ -50,11 +50,28 @@ func main() {
 	}
 	fmt.Println("✅ Conexión exitosa a PostgreSQL")
 
-	http.HandleFunc("/products", productsHandler)
-	http.HandleFunc("/products/", productByIDHandler)
+	// Configuración del router con soporte CORS
+	mux := http.NewServeMux()
+	mux.HandleFunc("/products", productsHandler)
+	mux.HandleFunc("/products/", productByIDHandler)
 
 	fmt.Println("🚀 Servidor corriendo en http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", enableCORS(mux)))
+}
+
+func enableCORS(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+		if r.Method == http.MethodOptions {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		h.ServeHTTP(w, r)
+	})
 }
 
 func productsHandler(w http.ResponseWriter, r *http.Request) {
@@ -111,16 +128,15 @@ func createProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	query := `
-	INSERT INTO products (
-		"productImage",
-		"productName",
-		"productPrice",
-		"productDescription",
-		"productCategory",
-		"quantityProduct"
-	)
-	VALUES ($1, $2, $3, $4, $5, $6)
-`
+		INSERT INTO products (
+			"productImage",
+			"productName",
+			"productPrice",
+			"productDescription",
+			"productCategory",
+			"quantityProduct"
+		) VALUES ($1, $2, $3, $4, $5, $6)
+	`
 
 	_, err = db.Exec(query,
 		p.ProductImage,
@@ -131,7 +147,7 @@ func createProduct(w http.ResponseWriter, r *http.Request) {
 		p.QuantityProduct,
 	)
 	if err != nil {
-		log.Println("🔥 Error real:", err) // 👉 esto imprime el error exacto en consola
+		log.Println("🔥 Error al insertar producto:", err)
 		http.Error(w, "Error al insertar producto", http.StatusInternalServerError)
 		return
 	}
@@ -196,7 +212,6 @@ func updateProduct(w http.ResponseWriter, r *http.Request, id int) {
 	json.NewEncoder(w).Encode(map[string]string{"message": "🔄 Producto actualizado"})
 }
 
-
 func deleteProduct(w http.ResponseWriter, id int) {
 	query := `DELETE FROM products WHERE "productId"=$1`
 	result, err := db.Exec(query, id)
@@ -214,4 +229,3 @@ func deleteProduct(w http.ResponseWriter, id int) {
 
 	json.NewEncoder(w).Encode(map[string]string{"message": "🗑️ Producto eliminado"})
 }
-

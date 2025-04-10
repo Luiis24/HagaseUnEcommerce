@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestión de Productos</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>📦 CRUD Productos</h1>
+
+  <form id="productForm">
+    <input type="hidden" id="productId" />
+    <input type="text" id="productImage" placeholder="URL de imagen" />
+    <input type="text" id="productName" placeholder="Nombre del producto" required />
+    <input type="number" id="productPrice" placeholder="Precio" required />
+    <textarea id="productDescription" placeholder="Descripción"></textarea>
+    <input type="text" id="productCategory" placeholder="Categoría" />
+    <input type="number" id="quantityProduct" placeholder="Cantidad" />
+    <button type="submit">💾 Guardar</button>
+  </form>
+
+  <hr />
+
+  <h2>📋 Lista de Productos</h2>
+  <div id="productList"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

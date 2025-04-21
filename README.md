@@ -1,7 +1,3 @@
-¡Claro! Aquí tienes un ejemplo de un archivo **README.md** para el repositorio de tu proyecto en GitHub:
-
----
-
 # Hágase un e-commerce - La Base
 
 Este repositorio contiene el código fuente del proyecto desarrollado durante el reto "Hágase un e-commerce - La Base" organizado por **tryCatch**. El objetivo del reto fue crear un e-commerce funcional en **7 días**, utilizando tecnologías modernas y siguiendo un enfoque ágil.

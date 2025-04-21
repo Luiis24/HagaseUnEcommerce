@@ -26,7 +26,7 @@ El proyecto fue desarrollado como parte de un desafío para aprender y practicar
 
 ## 📦 **Estructura del Proyecto**
 
-El proyecto está dividido en dos partes principales:
+El proyecto está dividido en cuatro partes principales:
 
 1. **Backend (`/backend`):**
    - Contiene el servidor desarrollado en Go con el framework Gin.
@@ -40,6 +40,10 @@ El proyecto está dividido en dos partes principales:
 3. **Base de Datos (`/database`):**
    - Scripts SQL para crear y poblar la base de datos.
    - Diseño de 3 tablas principales: `usuarios`, `productos` y `carrito`.
+  
+4. **Recursos (`/resources`):**
+   - Mockup del frontend.
+   - Diagrama ERD de la base de datos.
 
 ---
 

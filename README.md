@@ -99,6 +99,5 @@ Este proyecto fue desarrollado por **Luis Morales** como parte del reto "Hágase
 
 Este proyecto es una base sólida para un e-commerce funcional. Aunque el resultado final no es perfecto, estoy motivado a seguir mejorándolo y agregando nuevas funcionalidades. ¡Toda sugerencia es bienvenida!
 
----
+![image](https://github.com/user-attachments/assets/29b1f5dc-745e-4efc-ab8a-308dd6b5ff7a)
 
-Este **README** es claro, profesional y proporciona toda la información necesaria para que otros desarrolladores puedan entender, usar y contribuir al proyecto. ¡Espero que te sea útil! 😊
